@@ -83,7 +83,7 @@ now test your server using the following command:
         python3 manage.py runserver <your-ip>:8000
 
 Try visiting the server's adddress from one of your Wi-Fi connected devices
-(http://<your-ip>:8000). Upload some test files, configure the options, and
+(http://<<your-ip>>:8000). Upload some test files, configure the options, and
 print them out if you wish. After you have tested, you may want to run this
 in the background which you can do using my "start_in_background.bash" script.
 Of course, you could get a little bit fancier and create a service file if
