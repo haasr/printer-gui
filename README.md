@@ -15,6 +15,14 @@ of printing every couple of weeks and I end up fixing them. Now I just
 tell them to use the bookmark to my print server so I won't get any
 distressed calls about not being able to print!
 
+## Limitations
+- Currently, I have only implemented this for printing DOCX and PDF.
+- I did not use sessions. That means if someone clicks "Print Files"
+while another person in the house is uploading some files, whatever
+that other person has uploaded will print and be cleared from the queue
+as well. Not a big deal in my house but you can easily fix this by using
+user sessions with the django.contrib.auth.models.User model.
+
 ## Setup
 Follow the steps below to convert your single-board computer into
 a printer server on your subnet.
