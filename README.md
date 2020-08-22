@@ -79,7 +79,7 @@ this just runs on a subnet and I would prefer to see any exception output.
 ### 8) Run the server
 Ensure your virtualenv is activated ("source venv/bin/activate"). You may
 now test your server using the following command:
-    python3 manage.py runserver <your-ip>:8000
+        python3 manage.py runserver <your-ip>:8000
 After you have tested, you may want to run this in the background which
 you can do using my "start_in_background.bash" script. Of course, you could
 get a little bit fancier and create a service file if you prefer!
