@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="center-container">
+	<div class="form-container">
+		<div class="text-center title-container"><h2>New File Upload</h2></div>
+
+		<form method='post' enctype='multipart/form-data'>
+			{% csrf_token %}
+			{{ form.as_p }}
+			<div class="form-btn-container">
+				<span class="space-left-sm">
+					<button class="btn btn-primary" type="submit">
+						Save
+					</button>
+				</span>
+				<span class="space-lefts-sm">
+					<button class="btn btn-danger" onclick="javascript:history.back();">
+						Cancel
+					</button>
+				</span>
+			</div>
+		</form>
+	</div>
+</div>
+<br>
+{% endblock content %}

@@ -1,0 +1,78 @@
+{% extends './base.html' %}
+{% block content %}
+{% load static %}
+<div class="header-image-features shadow"
+    style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/static/images/printer.png');">
+    <div class="hero-container">
+        <h1 class="text-light textshadow">Epson Print Server</h1>
+        {% if features.header_text != '' %}
+        <p class="center-container hide-when-small text-light textshadow">
+            {{ features.header_text | safe | linebreaksbr }}
+        </p>
+        {% endif %}
+    </div>
+</div>
+
+</h2>
+<div class="center-container">
+    <div class="text-center" style="margin-bottom: 2%;">
+        <a href="{% url 'upload_file' %}">
+            <button class="btn btn-primary">
+                Upload
+            </button>
+        </a>
+        <span class="space-left-sm">
+            {% csrf_token %}
+            <button class="btn btn-warning" onclick="printFiles('{{ csrf_token }}');">
+                Print Files
+            </button>
+        </span>
+    </div>
+    <div class="row row-head hide-when-small">
+        <div class="col">File Name</div>
+        <div class="col">Color Setting</div>
+        <div class="col">Actions</div>
+    </div>
+    {% for file in files %}
+    <div class="row hide-when-small">
+        <div class="col">{{ file.name|truncatechars:14 }}</div>
+        {% if file.color == 'RGB' %}
+        <div class="col"><img src="{% static 'images/rgb.png' %}" width="14%"> Color</div>
+        {% else %}
+        <div class="col"><img src="{% static 'images/gray-circle.png' %}" width="14%"> B&W</div>
+        {% endif %}
+        <div class="col">
+            <span class="space-left-sm">
+                <a href="{% url 'edit_file' file.id %}">Options</a>
+            </span>
+            <span class="space-left-sm">
+                <a href="{% url 'delete_file' file.id %}">
+                    <img src="{% static 'images/x-icon.png' %}" style="margin-left: 7%;" width="15%">
+                </a>
+            </span>
+        </div>
+    </div>
+    {% endfor %}
+    <div class="show-when-small" style="border: 2px solid #ddd; border-radius: 5px;">
+        <div style="border: 2px solid #ddd; border-radius: 5px;">
+            <span style="font-size: 17px;">Name</span>
+            <span class="space-left" style="font-size: 17px;">Color</span>
+            <span class="space-left-sm" style="font-size: 17px;">Actions</span>
+        </div>
+    {% for file in files %}
+        <span class="small-text">{{ file.name|truncatechars:11 }}</span>
+        {% if file.color == 'RGB' %}
+        <img src="{% static 'images/rgb.png' %}" width="8%">
+        {% else %}
+        <img src="{% static 'images/gray-circle.png' %}" width="8%">
+        {% endif %}
+        <span class="small-text space-left-sm">
+            <a href="{% url 'edit_file' file.id %}">Options</a> | 
+            <a href="{% url 'delete_file' file.id %}"><img src="{% static 'images/x-icon.png' %}" width="8%"></a>
+        </span>
+        <hr>
+    {% endfor %}
+    </div>
+</div>
+<script src="{% static 'js/file_printer.js' %}"></script>
+{% endblock content %}

@@ -16,7 +16,6 @@ tell them to use the bookmark to my print server so I won't get any
 distressed calls about not being able to print!
 
 ## Setup
-
 Follow the steps below to convert your single-board computer into
 a printer server on your subnet.
 
@@ -48,8 +47,15 @@ of this project, activate it, and install the required packages:
     python3 -m venv venv
     source venv/bin/activate
     pip3 install -r requirements.txt
+
+### 5) Make the DB migrations
+With the virtualenv activated, migrate the database by entering the
+following commands in this project's root directory:
+
+    python3 manage.py makemigrations printer
+    python3 manage.py migrate
     
-### 5) Give your device a static IP
+### 6) Give your device a static IP
 You will, of course, need a static IP address. On most distros, you
 can configure your IP address in /etc/dhcpcd.conf by setting
 "static ip_address", "static domain_name_servers" and "static routers".
@@ -57,12 +63,12 @@ If you run RaspberryPi OS or something similar, there are many tutorials
 for doing this. Note the IP address you choose, you will need it in the
 next step.
 
-### 6) Add your IP address in printer/settings.py
+### 7) Add your IP address in printer/settings.py
 Open the settings.py file and enter your server's IP address as a string
 in the ALLOWED_HOSTS list. I leave DEBUG as True in my settings file since
 this just runs on a subnet and I would prefer to see any exception output.
 
-### 7) Run the server
+### 8) Run the server
 Ensure your virtualenv is activated ("source venv/bin/activate"). You may
 now test your server using the following command:
     python3 manage.py runserver <your-ip>:8000

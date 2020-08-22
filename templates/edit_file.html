@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="center-container">
+    <div class="form-container shadow">
+        <div class="text-center title-container"><h2>File Options</h2></div>
+
+        <form action="{% url 'edit_file' file.id %}" method='post'>
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="form-btn-container">
+                <span class="space-left-sm">
+                    <button class="btn btn-primary" type="submit">
+                        Save
+                    </button>
+                </span>
+                <span class="space-left-sm">
+                    <button class="btn btn-danger" onclick="javascript:history.back();">
+                        Cancel
+                    </button>
+                </span>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock content %}
