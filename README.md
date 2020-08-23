@@ -1,6 +1,8 @@
 # printer-gui
 Django web app for RPi to handle print jobs using a connected CUPS printer.
 
+![Preview of the Django application](./screenshots/preview.png)
+
 ## Requirements
 - Python3.8.3
 - Raspberry Pi or similar SBC with networking capability
