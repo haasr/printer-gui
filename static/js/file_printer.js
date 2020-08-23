@@ -14,5 +14,5 @@ function printFiles(csrfToken) {
     })
     window.setTimeout(function(){
         location.reload();
-    }, 1000);
+    }, 2500);
 }
