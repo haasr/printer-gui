@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.core.files.storage import FileSystemStorage
+from django.views.decorators.cache import never_cache
 
 from .models import *
 from .forms import *
@@ -15,6 +16,7 @@ import random
 UPLOADS_DIR = settings.STATICFILES_DIRS[0] + '/uploads/'
 
 
+@never_cache
 def index(request):
     files = File.objects.all()
     context = { 'files': files }
@@ -36,7 +38,7 @@ def upload_file(request):
         new_file = File(
             name=filename,
             page_range='0',
-            pages='0',
+            pages='All',
             color='RGB',
             orientation='3'
         )
