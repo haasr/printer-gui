@@ -15,6 +15,8 @@ import random
 
 UPLOADS_DIR = settings.STATICFILES_DIRS[0] + '/uploads/'
 
+# App default settings (color mode, orientation, printer used):
+settings = Settings.objects.get(id=1)
 
 @never_cache
 def index(request):
@@ -24,7 +26,13 @@ def index(request):
 
 
 def upload_file(request):
+    printer_selected = True
+
     if request.method != 'POST':
+        settings.refresh_from_db()
+        if settings.printer_profile == 'None found':
+            printer_selected = False
+
         form = FileUploadForm()
     else:
         fs_storage = FileSystemStorage(location=UPLOADS_DIR)
@@ -34,18 +42,21 @@ def upload_file(request):
         filename = filename.replace(' ', '')
         upload.name = filename
 
+        # Get settings object to apply defaults in to the new file object:
+        settings.refresh_from_db()
+
         filename = fs_storage.save(filename, upload)
         new_file = File(
             name=filename,
             page_range='0',
             pages='All',
-            color='RGB',
-            orientation='3'
+            color=settings.default_color,
+            orientation=settings.default_orientation
         )
         new_file.save()
         return HttpResponseRedirect(reverse('index'))
 
-    context = { 'form': form }
+    context = { 'printer_selected': printer_selected, 'form': form }
     return render(request, 'upload_file.html', context)
 
 
@@ -79,12 +90,22 @@ def print_files(request):
     if request.method == 'POST':
         files = File.objects.all()
         for fileObj in files:
-            print('Send to File Printer')
-            print(fileObj.color)
             file_printer.print_file(fileObj.name, fileObj.page_range, fileObj.pages,
                                     fileObj.color, fileObj.orientation)
-            print('Delete object')
             fileObj.delete()
     files = File.objects.all()
     context = { 'files': files }
     return render(request, 'index.html', context)
+
+
+def edit_settings(request):
+    settings.refresh_from_db()
+    if request.method != 'POST':
+        form = SettingsForm(instance=settings)
+    else:
+        form = SettingsForm(instance=settings, data=request.POST)
+        form.save()
+        return HttpResponseRedirect(reverse('index'))
+
+    context = { 'settings': settings, 'form': form }
+    return render(request, 'settings.html', context)

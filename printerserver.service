@@ -1,0 +1,9 @@
+[Unit]
+Description=Django GUI printer web server
+After=network.target
+
+[Service]
+ExecStart=/home/pi/printer-gui/start.bash
+
+[Install]
+WantedBy=multi-user.target

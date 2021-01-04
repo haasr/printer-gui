@@ -22,4 +22,22 @@
         </form>
     </div>
 </div>
+
+<script>
+    $(document).ready(function() {
+        let rangeSelect = document.getElementById('id_page_range');
+        let pagesField = document.getElementById('id_pages');
+
+        rangeSelect.addEventListener('change', function() {
+            if (rangeSelect[0].selected) { 
+                pagesField.disabled = true;
+                pagesField.innerText = 'All';
+            }
+            else { 
+                pagesField.disabled = false;
+                pagesField.innerText = '';
+            }
+        });
+    });
+</script>
 {% endblock content %}
