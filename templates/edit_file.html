@@ -28,6 +28,8 @@
         let rangeSelect = document.getElementById('id_page_range');
         let pagesField = document.getElementById('id_pages');
 
+        pagesField.disabled = true;
+
         rangeSelect.addEventListener('change', function() {
             if (rangeSelect[0].selected) { 
                 pagesField.disabled = true;
