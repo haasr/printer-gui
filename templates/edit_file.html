@@ -33,11 +33,11 @@
         rangeSelect.addEventListener('change', function() {
             if (rangeSelect[0].selected) { 
                 pagesField.disabled = true;
-                pagesField.innerText = 'All';
+                pagesField.value = 'All';
             }
             else { 
                 pagesField.disabled = false;
-                pagesField.innerText = '';
+                pagesField.value = '1-1';
             }
         });
     });
