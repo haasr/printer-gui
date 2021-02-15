@@ -41,10 +41,10 @@ Setup
 
 2) Install some necessary utilities
 -----------------------------------
-| My printer server only handles 2 file types: PDF and DOCX. DOCX
-| files are actually converted to PDF in order to be printed with
-| the 'lp' command-line utility. Perhaps if I get really bored,
-| I will look for other conversion tools and rewrite the
+| My printer server only handles 2 file types: PDF and DOCX.
+| DOCX files are actually converted to PDF in order to be printed
+| with the 'lp' command-line utility. Perhaps if I get really
+| bored, I will look for other conversion tools and rewrite the
 | printer/file_printer.py module to support converting JPEGs
 | and PNGs. Anyhow, the following utilities need to be installed:
 | - pandoc 2.2.1
