@@ -48,41 +48,6 @@ class FileUploadForm(forms.Form):
     )
 
 
-class FileForm(forms.ModelForm):
-    name = forms.CharField(
-        label='Filename',
-        disabled=True,
-    )
-    page_range = forms.CharField(
-        label='Page Range',
-        widget=forms.Select(
-            choices=PrintOptions.RANGE_OPTIONS
-        )
-    )
-    pages = forms.CharField(
-        label='Range (If Custom)',
-        widget=forms.TextInput(attrs={
-            'placeholder': 'E.g. 1-4'
-        })
-    )
-    color = forms.CharField(
-        label='Color',
-        widget=forms.Select(
-            choices=PrintOptions.COLOR_OPTIONS
-        )
-    )
-    orientation = forms.CharField(
-        label='Orientation',
-        widget=forms.Select(
-            choices=PrintOptions.ORIENTATION_OPTIONS
-        )
-    )
-
-    class Meta:
-        model = File
-        fields = [ 'name', 'page_range', 'pages', 'color', 'orientation' ]
-
-
 class SettingsForm(forms.ModelForm):
     app_title = forms.CharField(
         label = 'App title',

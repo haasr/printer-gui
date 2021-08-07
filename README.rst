@@ -7,16 +7,35 @@ printer-gui
 
 .. image:: ./screenshots/preview.png
 
+Changes
+#######
+
+- Replaced Django File form with a custom form processed w/ AJAX.
+- Used subprocesses for printing such that the program must wait on jobs.
+- Made CUPS profile refresh each time the app settings are saved.
+- Tailored title to be specific to each page.
+
+| Some of these improvements (i.e. waiting on a subprocess to finish printing)
+| should have been in place from the beginning. I decided to stop using the
+| Django File form when I noticed that the File data was not being updated
+| in Internet Explorer (which my father uses to access my print server).
+| I have tested the new AJAX-processed form in a variety of browsers
+| (Vivaldi & Firefox on Arch Linux; Firefox, Chrome, Edge, & IE on Win10)
+| and the form seems to validate correctly such that File data is saved using
+| each of those browsers.
+
 Requirements
 ############
 
 - Raspberry Pi or similar SBC with networking capability
-- Python 3.8.3 and the pip package installer on the SBC's OS.
+- Python 3.8+ and the pip package installer on the SBC's OS.
 - A network printer connected on the local network
 
 Limitations
 ###########
 - Currently I have only implemented DOCX and PDF file formats.
+- pandoc does not respect formatting so converting from DOCX isn't great.
+- It seems that some printers may not respect page orientation chosen.
 - No sessions.
 
 | Because I have not yet implemented sessions, if someone clicks

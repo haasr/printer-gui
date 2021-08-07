@@ -1,20 +1,70 @@
 {% extends 'base.html' %}
+{% block title %}Edit Print Settings{% endblock title %}
 {% block content %}
 <div class="center-container">
     <div class="form-container shadow">
         <div class="text-center title-container"><h2>File Options</h2></div>
-
-        <form action="{% url 'edit_file' file.id %}" method='post'>
-            {% csrf_token %}
-            {{ form.as_p }}
+        {% csrf_token %}
+        <form method="post" onsubmit="submitEditFileForm('{{ csrf_token }}','{{ file.id }}'); return false;">
+            <p>
+                <label for="id_name">Filename:</label>
+                <input type="text" name="name" required disabled id="id_name"
+                    value="{{ file.name }}">
+            </p>
+            <p>
+                <label for="id_page_range">Page Range:</label>
+                <select name="page_range" id="id_page_range">
+                    {% if file.page_range == '0' %}
+                    <option value="0" selected>All pages</option>
+                    <option value="1">Custom range</option>
+                    {% else %}
+                    <option value="0">All pages</option>
+                    <option value="1" selected>Custom range</option>
+                    {% endif %}
+                </select>
+            </p>
+            <p>
+                <label for="id_pages">Range (If Custom):</label>
+                {% if file.pages == 'All' %}
+                <input type="text" name="pages" value="All" placeholder="E.g. 1-4"
+                    required id="id_pages" disabled>
+                {% else %}
+                <input type="text" name="pages" value="{{ file.pages }}" placeholder="E.g. 1-4"
+                    required id="id_pages">
+                {% endif %}
+            </p>
+            <p>
+                <label for="id_color">Color:</label>
+                <select name="color" id="id_color">
+                    {% if file.color == 'RGB' %}
+                    <option value="Gray">Grayscale</option>
+                    <option value="RGB" selected>Color</option>
+                    {% else %}
+                    <option value="Gray" selected>Grayscale</option>
+                    <option value="RGB">Color</option>
+                    {% endif %}
+                </select>
+            </p>
+            <p>
+                <label for="id_orientation">Orientation:</label>
+                <select name="orientation" id="id_orientation">
+                    {% if file.orientation == '3' %}
+                    <option value="3" selected>Portrait</option>    
+                    <option value="4">Landscape</option>
+                    {% else %}
+                    <option value="3">Portrait</option>    
+                    <option value="4" selected>Landscape</option>
+                    {% endif %}
+                </select>
+            </p>
             <div class="form-btn-container">
                 <span class="space-left-sm">
-                    <button class="btn btn-primary" type="submit">
+                    <button class="btn btn-primary" id="submit">
                         Save
                     </button>
                 </span>
                 <span class="space-left-sm">
-                    <button class="btn btn-danger" onclick="javascript:history.back();">
+                    <button class="btn btn-danger" onclick="javascript:window.location.replace('/');">
                         Cancel
                     </button>
                 </span>
@@ -28,8 +78,6 @@
         let rangeSelect = document.getElementById('id_page_range');
         let pagesField = document.getElementById('id_pages');
 
-        pagesField.disabled = true;
-
         rangeSelect.addEventListener('change', function() {
             if (rangeSelect[0].selected) { 
                 pagesField.disabled = true;
@@ -41,5 +89,29 @@
             }
         });
     });
+
+    function submitEditFileForm(csrfToken, file_id) {
+        $.ajax({
+            url: '/submit_edit_file_form/',
+            type: 'POST',
+            data: {
+                'csrfmiddlewaretoken': csrfToken,
+                'file_id': file_id,
+                'name': document.getElementById('id_name').value,
+                'page_range': document.getElementById('id_page_range').value,
+                'pages': document.getElementById('id_pages').value,
+                'color': document.getElementById('id_color').value,
+                'orientation': document.getElementById('id_orientation').value
+            },
+            success: function() {
+                console.log('200: POST succeeded.');
+                history.back();
+            },
+            error: function() {
+                console.log('403: POST failed.');
+                alert('Your request could not be submitted.');
+            }
+        })
+    }
 </script>
 {% endblock content %}

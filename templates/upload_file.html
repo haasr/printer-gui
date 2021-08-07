@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
+{% block title %}Upload File{% endblock title %}
 {% block content %}
-{% if printer_selected %}
 <div class="center-container">
 	<div class="form-container">
 		<div class="text-center title-container"><h2>New File Upload</h2></div>
@@ -23,23 +23,5 @@
 		</form>
 	</div>
 </div>
-{% else %}
-<div class="center-container">
-	<div class="form-container">
-		<div class="text-center title-container"><h2>CUPS profile not configured</h2></div>
-		<p>
-			You must select an available printer profile in the <a href="{% url 'settings' %}">settings</a>.
-			If no printer profile is available, you will need to add one through the CUPS
-			web GUI (located <a target="_blank" href="https://localhost:631">here</a> if available)
-			or through the lpadmin command-line tool.
-		</p>
-		<div class="form-btn-container">
-			<a href="{% url 'index' %}">
-				<button class="btn btn-primary">Okay</button>
-			</a>
-		</div>
-	</div>
-</div>
-{% endif %}
 <br>
 {% endblock content %}

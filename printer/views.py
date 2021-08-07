@@ -60,19 +60,25 @@ def upload_file(request):
     return render(request, 'upload_file.html', context)
 
 
-def edit_file(request, file_id):
+def edit_file(request, file_id): # TODO: Change this -- remove form object stuff.
     fileObj = File.objects.get(id=file_id)
-
-    if request.method != 'POST':
-        form = FileForm(instance=fileObj)
-    else:
-        form = FileForm(instance=fileObj, data=request.POST)
-        if form.is_valid():
-            form.save()
-        return HttpResponseRedirect(reverse('index'))
-
-    context = { 'form': form, 'file': fileObj }
+    fileObj.refresh_from_db()
+    context = { 'file': fileObj }
     return render(request, 'edit_file.html', context)
+
+
+def submit_edit_file_form(request): # TODO: Finish this -- register URL in urls.py
+    if request.method == 'POST':
+        fileObj = File.objects.get(id=int(request.POST['file_id']))
+        fileObj.name = request.POST['name']
+        fileObj.page_range = request.POST['page_range']
+        fileObj.pages = request.POST['pages']
+        fileObj.color = request.POST['color']
+        fileObj.orientation = request.POST['orientation']
+        fileObj.save()
+        return HttpResponse(status=200)
+    else:
+        return HttpResponse(status=403)
 
 
 def delete_file(request, file_id):
@@ -105,6 +111,7 @@ def edit_settings(request):
     else:
         form = SettingsForm(instance=settings, data=request.POST)
         form.save()
+        file_printer.refresh_printer_profile()
         return HttpResponseRedirect(reverse('index'))
 
     context = { 'settings': settings, 'form': form }
