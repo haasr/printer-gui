@@ -2,6 +2,9 @@ from django import forms
 from .models import *
 import subprocess
 
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout, Fieldset, Row, Column
+
 # Get available printer profiles:
 available_printer_profiles = [] # List of tuples for available printer profiles
 try:
@@ -39,14 +42,23 @@ class PrintOptions:
 
 class FileUploadForm(forms.Form):
     file_upload = forms.FileField(
-        label='Upload PDF or DOCX',
+        label='Upload Document',
         required=True,
+        help_text='Only pdf, doc, docx, odt, and rtf are supported',
         widget=forms.FileInput(attrs={
             'multiple': False,
-            'accept': 'application/pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+            'accept': 'application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/msword,application/vnd.openxmlformats,application/vnd.oasis.opendocument.text,application/rtf'
         })
     )
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_class='form-horizontal'
+        self.helper.label_class='col-25 fs-400 ff-sans-normal'
+        self.helper.field_class='col-75'
+        self.helper.form_tag = False
+    
 
 class SettingsForm(forms.ModelForm):
     app_title = forms.CharField(
@@ -75,4 +87,12 @@ class SettingsForm(forms.ModelForm):
         model = Settings
         fields = [ 'app_title', 'default_color', 'default_orientation',
                     'printer_profile' ]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_class='form-horizontal'
+        self.helper.label_class='col-25 fs-400 ff-sans-normal'
+        self.helper.field_class='col-75'
+        self.helper.form_tag = False
 

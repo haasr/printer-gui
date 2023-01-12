@@ -1,81 +1,138 @@
 {% extends './base.html' %}
-{% block title %}Home{% endblock title %}
-{% block content %}
+
 {% load static %}
-<div class="header-image-features shadow"
-    style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/static/images/printer.png');">
-    <a href="{% url 'settings' %}">
-        <svg style="float: right;" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="white" class="bi bi-gear" viewBox="0 0 16 16">
-            <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/>
-            <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z"/>
-        </svg>
-    </a>
-    <div class="hero-container">
-        <h1 class="text-light textshadow">{{ app_title }}</h1>
-        {% if features.header_text != '' %}
-        <p class="center-container hide-when-small text-light textshadow">
-            {{ features.header_text | safe | linebreaksbr }}
-        </p>
-        {% endif %}
+
+{% block title %}Home{% endblock title %}
+
+{% block page_style %}
+#splash-header {
+    height: 46%;
+    padding: 80px 10px 30px 0px;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.2)), url('/static/images/printer.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+}
+{% endblock page_style %}
+
+{% block content %}
+<div class="p-3">
+    <div class="container-md flow">
+        <div id="splash-header" class="flow br-2 shadow">
+            <a href="{% url 'settings' %}" style="float: right;">
+                <button class="bttn-orange-sm mr-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="2.5em" height="2.5em" fill="white" class="bi bi-gear-fill" viewBox="0 0 16 16">
+                        <path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z"/>
+                    </svg>
+                </button>
+            </a>
+            <div class="d-flex justify-content-center">
+                <h1 class="text-light ff-sans-bolder ml-5 textshadow">{{ app_title }}</h1>
+            </div>
+        </div>
+       <div class="lightly-pad-container text-break bg-gradient-right-crimson-blue br-2 shadow" style="margin-bottom: 0px;">
+            <h2 class="text-white text-center ff-sans-bolder">Uploaded Files</h2>
+       </div>
+       <div class="bg-gradient-right-crimson-blue br-2 mb-2 p-2">
+            <div class="row card-row m-1">
+                <a href="{% url 'upload_file' %}" class="mb-2 ml-3">
+                <button class="bttn-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" fill="currentColor" class="bi bi-cloud-plus-fill" viewBox="0 0 16 16"><path d="M8 2a5.53 5.53 0 0 0-3.594 1.342c-.766.66-1.321 1.52-1.464 2.383C1.266 6.095 0 7.555 0 9.318 0 11.366 1.708 13 3.781 13h8.906C14.502 13 16 11.57 16 9.773c0-1.636-1.242-2.969-2.834-3.194C12.923 3.999 10.69 2 8 2zm.5 4v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 1 0z"/></svg>&ensp;Upload file
+                </button></a>
+                {% csrf_token %}
+                <button class="bttn-orange mb-2 ml-3" onclick="printFiles(`{{ csrf_token }}`);">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" fill="currentColor" class="bi bi-printer-fill" viewBox="0 0 16 16">
+                        <path d="M5 1a2 2 0 0 0-2 2v1h10V3a2 2 0 0 0-2-2H5zm6 8H5a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1z"/>
+                        <path d="M0 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-1v-2a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v2H2a2 2 0 0 1-2-2V7zm2.5 1a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z"/>
+                    </svg>&ensp;Print
+                </button>
+            </div>
+            <div class="row card-row border-white bg-light br-2 m-1" style="height: 400px; overflow-y: scroll;">
+            {% for message in messages %}
+                <div class="container-fluid p-0">
+                    <div class="alert {{ message.tags }} alert-dismissible" role="alert" >
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="True">&times;</span>
+                        </button>
+                        {{ message }}
+                    </div>
+                </div>
+            {% endfor %}
+            {% for file in files %}
+                <div class="bg-white mb-2 mr-2 shadow" style="display: inline-block; height: fit-content;">
+                    <a href="{% url 'edit_file' file.id %}">
+                        <div class="folder-box-sm box-top text text-center br-2">
+                            <span class="float-left"></span>
+                            {% if file.file_type == 'PDF' %}
+                            <svg xmlns="http://www.w3.org/2000/svg" width="4em" height="4em" fill="var(--clr-folder-salmon)" class="bi bi-file-earmark-pdf-fill" viewBox="0 0 16 16">
+                                <path d="M5.523 12.424c.14-.082.293-.162.459-.238a7.878 7.878 0 0 1-.45.606c-.28.337-.498.516-.635.572a.266.266 0 0 1-.035.012.282.282 0 0 1-.026-.044c-.056-.11-.054-.216.04-.36.106-.165.319-.354.647-.548zm2.455-1.647c-.119.025-.237.05-.356.078a21.148 21.148 0 0 0 .5-1.05 12.045 12.045 0 0 0 .51.858c-.217.032-.436.07-.654.114zm2.525.939a3.881 3.881 0 0 1-.435-.41c.228.005.434.022.612.054.317.057.466.147.518.209a.095.095 0 0 1 .026.064.436.436 0 0 1-.06.2.307.307 0 0 1-.094.124.107.107 0 0 1-.069.015c-.09-.003-.258-.066-.498-.256zM8.278 6.97c-.04.244-.108.524-.2.829a4.86 4.86 0 0 1-.089-.346c-.076-.353-.087-.63-.046-.822.038-.177.11-.248.196-.283a.517.517 0 0 1 .145-.04c.013.03.028.092.032.198.005.122-.007.277-.038.465z"/>
+                                <path fill-rule="evenodd" d="M4 0h5.293A1 1 0 0 1 10 .293L13.707 4a1 1 0 0 1 .293.707V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zm5.5 1.5v2a1 1 0 0 0 1 1h2l-3-3zM4.165 13.668c.09.18.23.343.438.419.207.075.412.04.58-.03.318-.13.635-.436.926-.786.333-.401.683-.927 1.021-1.51a11.651 11.651 0 0 1 1.997-.406c.3.383.61.713.91.95.28.22.603.403.934.417a.856.856 0 0 0 .51-.138c.155-.101.27-.247.354-.416.09-.181.145-.37.138-.563a.844.844 0 0 0-.2-.518c-.226-.27-.596-.4-.96-.465a5.76 5.76 0 0 0-1.335-.05 10.954 10.954 0 0 1-.98-1.686c.25-.66.437-1.284.52-1.794.036-.218.055-.426.048-.614a1.238 1.238 0 0 0-.127-.538.7.7 0 0 0-.477-.365c-.202-.043-.41 0-.601.077-.377.15-.576.47-.651.823-.073.34-.04.736.046 1.136.088.406.238.848.43 1.295a19.697 19.697 0 0 1-1.062 2.227 7.662 7.662 0 0 0-1.482.645c-.37.22-.699.48-.897.787-.21.326-.275.714-.08 1.103z"/>
+                            </svg><br>
+                            {% elif file.file_type == 'Word (2007)' %}
+                            <svg xmlns="http://www.w3.org/2000/svg" width="4em" height="4em" fill="var(--clr-folder-blue)" class="bi bi-file-earmark-word-fill" viewBox="0 0 16 16">
+                                <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zM5.485 6.879l1.036 4.144.997-3.655a.5.5 0 0 1 .964 0l.997 3.655 1.036-4.144a.5.5 0 0 1 .97.242l-1.5 6a.5.5 0 0 1-.967.01L8 9.402l-1.018 3.73a.5.5 0 0 1-.967-.01l-1.5-6a.5.5 0 1 1 .97-.242z"/>
+                            </svg><br>
+                            {% elif file.file_type == 'Word (2003)' %}
+                            <svg xmlns="http://www.w3.org/2000/svg" width="4em" height="4em" fill="var(--clr-folder-blue)" class="bi bi-file-earmark-word-fill" viewBox="0 0 16 16">
+                                <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zM5.485 6.879l1.036 4.144.997-3.655a.5.5 0 0 1 .964 0l.997 3.655 1.036-4.144a.5.5 0 0 1 .97.242l-1.5 6a.5.5 0 0 1-.967.01L8 9.402l-1.018 3.73a.5.5 0 0 1-.967-.01l-1.5-6a.5.5 0 1 1 .97-.242z"/>
+                            </svg><br>
+                            {% elif file.file_type == 'OpenDocument Text' %}
+                            <svg xmlns="http://www.w3.org/2000/svg" width="4em" height="4em" fill="var(--clr-folder-purple)" class="bi bi-file-earmark-text-fill" viewBox="0 0 16 16">
+                                <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zM4.5 9a.5.5 0 0 1 0-1h7a.5.5 0 0 1 0 1h-7zM4 10.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 1 0-1h4a.5.5 0 0 1 0 1h-4z"/>
+                            </svg><br>
+                            {% elif file.file_type == 'Rich Text Format' %}
+                            <svg xmlns="http://www.w3.org/2000/svg" width="4em" height="4em" fill="var(--clr-folder-green)" class="bi bi-file-earmark-richtext-fill" viewBox="0 0 16 16">
+                                <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zM7 6.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm-.861 1.542 1.33.886 1.854-1.855a.25.25 0 0 1 .289-.047l1.888.974V9.5a.5.5 0 0 1-.5.5H5a.5.5 0 0 1-.5-.5V9s1.54-1.274 1.639-1.208zM5 11h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1zm0 2h3a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1z"/>
+                            </svg><br>
+                            {% else %}
+                            <svg xmlns="http://www.w3.org/2000/svg" width="4em" height="4em" fill="var(--clr-folder-charcoal)" class="bi bi-file-earmark-fill" viewBox="0 0 16 16">
+                                <path d="M4 0h5.293A1 1 0 0 1 10 .293L13.707 4a1 1 0 0 1 .293.707V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zm5.5 1.5v2a1 1 0 0 0 1 1h2l-3-3z"/>
+                            </svg><br>
+                            {% endif %}
+                            {% if file.color == 'RGB' %}
+                            <img title="File color: RGB" alt="RGB fill circle" src="{% static 'images/rgb.png' %}" width="30"
+                                style="float: left; margin-top: -50px;">
+                            {% else %}
+                            <img title="File color: B&W" alt="Gray fill circle" src="{% static 'images/gray-circle.png' %}" width="30"
+                                style="float: left; margin-top: -50px;">
+                            {% endif %}
+                            <p class="fs-350">{{ file.name|truncatechars:16 }}</p>
+                            <p class="fs-300 text-accent">{{ file.file_type }} file</p>
+                            <span class="fs-100"><i class="bi bi-clock"></i>&ensp;{{ file.uploaded_at }}</span>
+                        </div>
+                    </a>
+                    <a href="{% url 'delete_file' file.id %}" class="text-danger mb-2">
+                        <div class="folder-box-sm br-2 bg-white">
+                            Delete
+                            <svg xmlns="http://www.w3.org/2000/svg" width="1.6em" height="1.6em" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16" style="float: right;">
+                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
+                            </svg>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+            </div>
+       </div>
     </div>
 </div>
 
-</h2>
-<div class="center-container">
-    <div class="text-center" style="margin-bottom: 2%;">
-        <a href="{% url 'upload_file' %}"><button class="btn btn-primary">Upload</button></a>
-        <span class="space-left-sm">
-            {% csrf_token %}
-            <button class="btn btn-warning" onclick="printFiles('{{ csrf_token }}');">
-                Print Files
-            </button>
-        </span>
-    </div>
-    <div class="row row-head hide-when-small">
-        <div class="col">File Name</div>
-        <div class="col">Color Setting</div>
-        <div class="col">Actions</div>
-    </div>
-    {% for file in files %}
-    <div class="row hide-when-small">
-        <div class="col">{{ file.name|truncatechars:16 }}</div>
-        {% if file.color == 'RGB' %}
-        <div class="col"><img src="{% static 'images/rgb.png' %}" width="14%"> Color</div>
-        {% else %}
-        <div class="col"><img src="{% static 'images/gray-circle.png' %}" width="14%"> B&W</div>
-        {% endif %}
-        <div class="col">
-            <span class="space-left-sm">
-                <a href="{% url 'edit_file' file.id %}">Options</a>
-            </span>
-            <span class="space-left-sm">
-                <a href="{% url 'delete_file' file.id %}">
-                    <img src="{% static 'images/x-icon.png' %}" style="margin-left: 7%;" width="15%">
-                </a>
-            </span>
-        </div>
-    </div>
-    {% endfor %}
-    <div class="show-when-small" style="border: 2px solid #ddd; border-radius: 5px;">
-        <div style="border: 2px solid #ddd; border-radius: 5px;">
-            <span style="font-size: 17px;">Name</span>
-            <span class="space-left" style="font-size: 17px;">Color</span>
-            <span class="space-left-sm" style="font-size: 17px;">Actions</span>
-        </div>
-    {% for file in files %}
-        <span class="small-text">{{ file.name|truncatechars:11 }}</span>
-        {% if file.color == 'RGB' %}
-        <img src="{% static 'images/rgb.png' %}" width="8%">
-        {% else %}
-        <img src="{% static 'images/gray-circle.png' %}" width="8%">
-        {% endif %}
-        <span class="small-text space-left-sm">
-            <a href="{% url 'edit_file' file.id %}">Options</a> | 
-            <a href="{% url 'delete_file' file.id %}"><img src="{% static 'images/x-icon.png' %}" width="8%"></a>
-        </span>
-        <hr>
-    {% endfor %}
-    </div>
-</div>
 <script src="{% static 'js/file_printer.js' %}"></script>
+<script>
+    let choices = document.getElementsByClassName('box-top');
+    let maxWidth = 0;
+    let maxHeight = 0;
+    // read
+    for (i = 0; i < choices.length; ++i) {
+        maxWidth = Math.max(maxWidth, choices[i].offsetWidth) + 10;
+        maxHeight = Math.max(maxHeight, choices[i].offsetHeight) + 10;
+    };
+
+    // write
+    for (i = 0; i < choices.length; ++i) {
+        choices[i].style.width = maxWidth + "px";
+        choices[i].style.height = maxHeight + "px";
+    };
+</script>
 {% endblock content %}

@@ -4,15 +4,17 @@ function printFiles(csrfToken) {
         type: 'POST',
         data: { 'csrfmiddlewaretoken': csrfToken },
         success: function() {
-            console.log('POST succeeded.')
-            alert('Files are printing...')
+            console.log('POST succeeded.');
+            window.location.reload(); // Shows the jobs completed message
+            
+            window.setTimeout(function() {
+                window.location.replace('/'); // Clears out the files listed on screen
+            }, 5000);
         },
         error: function() {
-            console.log('POST failed.')
-            alert('Your request could not be submitted.')
+            console.log('POST failed.');
+            alert('The system encountered errors while processing your print jobs.');
+            window.location.reload();
         }
     })
-    window.setTimeout(function(){
-        location.reload();
-    }, 5000);
 }

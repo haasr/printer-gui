@@ -7,3 +7,4 @@ ExecStart=/home/pi/printer-gui/start.bash
 
 [Install]
 WantedBy=multi-user.target
+

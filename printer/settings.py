@@ -11,7 +11,17 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+from django.contrib.messages import constants as messages_constants
+
 import os
+
+MESSAGE_TAGS = {
+    messages_constants.DEBUG: 'alert-secondary',
+    messages_constants.INFO: 'alert-info',
+    messages_constants.SUCCESS: 'alert-success',
+    messages_constants.WARNING: 'alert-warning',
+    messages_constants.ERROR: 'alert-danger',
+ }
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
@@ -28,7 +38,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     '127.0.0.1',
-    '192.168.1.133'
+    '192.168.1.4'
 ]
 
 
@@ -41,8 +51,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    ## 3rd party ##
+    'crispy_forms',
+
+    ## Programmer-defined ##
     'printer',
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4' # For Crispy Forms
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

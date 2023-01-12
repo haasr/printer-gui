@@ -1,0 +1,82 @@
+/* Style inputs, select elements and textareas */
+input[type=text], input[type=password], select, textarea{
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    box-sizing: border-box;
+    resize: vertical;
+  }
+  
+  /* Enlarge the checkbox to make it more easily clickable. */
+  input[type=checkbox] {
+    width: 2em;
+    height: 2em;
+    vertical-align: middle;
+  }
+  
+  /* Style the label to display next to the inputs */
+  label, .forms-label {
+    padding: 12px 12px 12px 0;
+    display: inline-block;
+    font-size: 1.2rem;
+  }
+  
+  /* Style the container */
+  .form-container {
+    border-radius: 2px;
+    background-color: rgba(228, 228, 228, 0.2);
+    padding: 20px;
+    margin: 4vh auto 0;
+    border: 1px dotted hsl( var(--clr-brand-blue) );
+    word-wrap: break-word;
+  }
+  
+  .login-container {
+    margin: 80px auto 0;
+    border: 1px dotted hsl( var(--clr-brand-blue) );
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: 60%;
+    background-color: rgba(228, 228, 228, 0.2);
+    border-radius: 3px;
+  }
+  
+  .tos-box {
+    display: block;
+    padding: 1em;
+    border: 1px solid #ddd;
+    border-radius: 2px;
+    max-width: 800px;
+  }
+  
+  /* Floating column for labels: 25% width */
+  .col-25 {
+    float: left;
+    width: 25%;
+    margin-top: 6px;
+  }
+  
+  /* Floating column for inputs: 75% width */
+  .col-75 {
+    float: left;
+    width: 75%;
+    margin-top: 6px;
+  }
+  
+  /* Clear floats after the columns */
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  
+  /* When the screen is less than 600px wide, make the two columns stack on top of each other */
+  @media screen and (max-width: 600px) {
+    .col-25, .col-75, input[type=submit] {
+      width: 100%;
+      margin-top: 0;
+    }
+  }

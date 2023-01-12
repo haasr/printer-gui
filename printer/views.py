@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
@@ -9,14 +10,14 @@ from .forms import *
 from . import settings
 from . import file_printer
 
-import os
 import re
-import random
+
 
 UPLOADS_DIR = settings.STATICFILES_DIRS[0] + '/uploads/'
 
 # App default settings (color mode, orientation, printer used):
 settings = Settings.objects.get(id=1)
+
 
 @never_cache
 def index(request):
@@ -38,18 +39,14 @@ def upload_file(request):
         fs_storage = FileSystemStorage(location=UPLOADS_DIR)
         upload = request.FILES['file_upload']
 
-        filename = str(random.randint(0, 100)) + re.sub('[^a-zA-Z0-9 \n\.]', '', upload.name)
-        filename = filename.replace(' ', '')
+        filename = re.sub('[^a-zA-Z0-9.]', '-', upload.name)
         upload.name = filename
 
-        # Get settings object to apply defaults in to the new file object:
-        settings.refresh_from_db()
+        # Get settings object to apply defaults to the new file object:
 
         filename = fs_storage.save(filename, upload)
         new_file = File(
-            name=filename,
-            page_range='0',
-            pages='All',
+            name=upload.name, page_range='0', pages='All',
             color=settings.default_color,
             orientation=settings.default_orientation
         )
@@ -60,14 +57,14 @@ def upload_file(request):
     return render(request, 'upload_file.html', context)
 
 
-def edit_file(request, file_id): # TODO: Change this -- remove form object stuff.
+def edit_file(request, file_id):
     fileObj = File.objects.get(id=file_id)
     fileObj.refresh_from_db()
     context = { 'file': fileObj }
     return render(request, 'edit_file.html', context)
 
 
-def submit_edit_file_form(request): # TODO: Finish this -- register URL in urls.py
+def submit_edit_file_form(request):
     if request.method == 'POST':
         fileObj = File.objects.get(id=int(request.POST['file_id']))
         fileObj.name = request.POST['name']
@@ -83,25 +80,34 @@ def submit_edit_file_form(request): # TODO: Finish this -- register URL in urls.
 
 def delete_file(request, file_id):
     fileObj = File.objects.get(id=file_id)
-    filepath = UPLOADS_DIR + fileObj.name
     fileObj.delete()
-    try:
-        os.remove(filepath)
-    except:
-        pass
+    
     return HttpResponseRedirect(reverse('index'))
 
 
 def print_files(request):
     if request.method == 'POST':
         files = File.objects.all()
+        
+        errors = False
         for fileObj in files:
-            file_printer.print_file(fileObj.name, fileObj.page_range, fileObj.pages,
-                                    fileObj.color, fileObj.orientation)
+            output = file_printer.print_file(fileObj.name, fileObj.page_range,
+                                fileObj.pages, fileObj.color, fileObj.orientation)
+            err = output[1].decode()
+            if err != '':
+                errors = True
+                messages.error(request, err)
+            else:
+                messages.info(request, f"Printing {fileObj.name}")
+            
             fileObj.delete()
-    files = File.objects.all()
-    context = { 'files': files }
-    return render(request, 'index.html', context)
+
+        if errors:
+            return HttpResponse(status=500)
+        else:
+            messages.success(request, 'Jobs completed')
+            return HttpResponse(status=204) # OK, Nothing to return
+    return HttpResponse(status=403) # !POST forbidden
 
 
 def edit_settings(request):
