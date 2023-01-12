@@ -11,7 +11,7 @@ printer-gui
 Changes
 #######
 
-- Capturing ``stderr`` from subprocesses for to convey errors to the user.
+- Capturing ``stderr`` from subprocesses to convey errors to the user.
 - Leveraging Django's Messages Framework to display statuses and exceptions.
 - Implementing ``libreoffice`` for PDF conversion instead of ``pandoc``.
 - Re-designed UI for better look/feel. -- Improved mobile/overall experience.
